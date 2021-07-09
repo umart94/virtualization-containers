@@ -1,0 +1,156 @@
+Prerequisites
+Before you install the Docker Desktop WSL 2 backend, you must complete the following steps:
+
+Install Windows 10, version 1903 or higher.
+Enable WSL 2 feature on Windows. For detailed instructions, refer to the Microsoft documentation.
+Download and install the Linux kernel update package.
+
+
+Enter this command in the command line you've opened in Admin mode: wsl.exe --install
+Restart your machine
+
+docker desktop shows 
+You don't have any WSL 2 distro. Please convert a WSL 1 distro to WSL 2, or install a new distro and it will appear here.
+
+
+now the command has changed
+also, we need to set only a default distribution here, wsl is installed properly.
+
+
+we need to run this command : 
+
+Enable-WindowsOptionalFeature -Online -FeatureName VirtualMachinePlatform 
+
+Enable-WindowsOptionalFeature -Online -FeatureName VirtualMachinePlatform
+
+
+Path          :
+Online        : True
+RestartNeeded : False
+
+
+we still cannot run this command
+
+we have to be inside windows insiders program
+
+
+so , now we will install wsl manually.
+
+Manual Installation Steps
+If you are not on a Windows Insiders build, the features required for WSL will need to be enabled manually following the steps below.
+
+
+
+
+Step 1 - Enable the Windows Subsystem for Linux
+You must first enable the "Windows Subsystem for Linux" optional feature before installing any Linux distributions on Windows.
+
+Open PowerShell as Administrator and run:
+
+PowerShell
+
+Copy
+dism.exe /online /enable-feature /featurename:Microsoft-Windows-Subsystem-Linux /all /norestart
+
+
+
+
+
+dism.exe /online /enable-feature /featurename:Microsoft-Windows-Subsystem-Linux /all /norestart
+
+Deployment Image Servicing and Management tool
+Version: 10.0.19041.572
+
+Image Version: 10.0.19041.572
+
+Enabling feature(s)
+[==========================100.0%==========================]
+The operation completed successfully.
+
+
+We recommend now moving on to step #2, updating to WSL 2, but if you wish to only install WSL 1, you can now restart your machine and move on to Step 6 - Install your Linux distribution of choice. To update to WSL 2, wait to restart your machine and move on to the next step.
+
+
+10.0.19041 Build 19041
+
+
+Step 2 - Update to WSL 2
+To update to WSL 2, you must be running Windows 10.
+
+Requirements
+For x64 systems: Version 1903 or higher, with Build 18362 or higher.
+For ARM64 systems: Version 2004 or higher, with Build 19041 or higher.
+Builds lower than 18362 do not support WSL 2. Use the Windows Update Assistant to update your version of Windows.
+
+
+To check your version and build number, select Windows logo key + R, type winver, select OK. (Or enter the ver command in Windows Command Prompt). Update to the latest Windows version in the Settings menu.
+
+ Note
+
+If you are running Windows 10 version 1903 or 1909, open "Settings" from your Windows menu, navigate to "Update & Security" and select "Check for Updates". Your Build number must be 18362.1049+ or 18363.1049+, with the minor build # over .1049. Read more: WSL 2 Support is coming to Windows 10 Versions 1903 and 1909. See the troubleshooting instructions.
+
+
+Step 3 - Enable Virtual Machine feature
+Before installing WSL 2, you must enable the Virtual Machine Platform optional feature.
+
+Open PowerShell as Administrator and run:
+
+dism.exe /online /enable-feature /featurename:VirtualMachinePlatform /all /norestart
+
+Deployment Image Servicing and Management tool
+Version: 10.0.19041.572
+
+Image Version: 10.0.19041.572
+
+Enabling feature(s)
+[==========================100.0%==========================]
+The operation completed successfully.
+
+
+
+Restart your machine to complete the WSL install and update to WSL 2.
+
+Step 4 - Download the Linux kernel update package
+Download the latest package:
+
+WSL2 Linux kernel update package for x64 machines
+
+If you're using an ARM64 machine, please download the ARM64 package instead. If you're not sure what kind of machine you have, open Command Prompt or PowerShell and enter: systeminfo | find "System Type".
+
+
+Run the update package downloaded in the previous step. (Double-click to run - you will be prompted for elevated permissions, select ‘yes’ to approve this installation.)
+
+Once the installation is complete, move on to the next step - setting WSL 2 as your default version when installing new Linux distributions. (Skip this step if you want your new Linux installs to be set to WSL 1).
+
+
+
+my windows 10 pro build is : 10.0.19041 Build 19041
+
+ wsl --set-default-version 2
+For information on key differences with WSL 2 please visit https://aka.ms/wsl2
+
+
+ Note
+
+The update from WSL 1 to WSL 2 may take several minutes to complete depending on the size of your targeted distribution. If you are running an older (legacy) installation of WSL 1 from Windows 10 Anniversary Update or Creators Update, you may encounter an update error. Follow these instructions to uninstall and remove any legacy distributions.
+
+If wsl --set-default-version results as an invalid command, enter wsl --help. If the --set-default-version is not listed, it means that your OS doesn't support it and you need to update to version 1903, Build 18362 or higher.
+
+If you see this message after running the command: WSL 2 requires an update to its kernel component. For information please visit https://aka.ms/wsl2kernel. You still need to install the MSI Linux kernel update package.
+
+
+ubuntu 20.04 lts update
+
+
+The first time you launch a newly installed Linux distribution, a console window will open and you'll be asked to wait for a minute or two for files to de-compress and be stored on your PC. All future launches should take less than a second.
+
+You will then need to create a user account and password for your new Linux distribution.
+
+
+also install windows terminal from microsoft store.
+
+
+now we can launch a ubuntu distribution that is installed natively on windows.
+
+
+

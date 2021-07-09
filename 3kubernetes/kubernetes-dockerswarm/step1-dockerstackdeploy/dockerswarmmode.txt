@@ -1,0 +1,92 @@
+Enable Docker Swarm
+Docker Desktop runs primarily on Docker Engine, which has everything you need to run a Swarm built in. Follow the setup and validation instructions appropriate for your operating system:
+
+
+PS D:\github\networking\virtualization-containers\3kubernetes\kubernetes-ordockerswarmmode\step1-dockerstackdeploy> docker swarm init
+Swarm initialized: current node (myqi30yucl2e6vmxwfy0l9h06) is now a manager.
+
+To add a worker to this swarm, run the following command:
+
+    docker swarm join --token SWMTKN-1-1oc4izec3jflzvryyx7q71sgg7temmbew2ko4g6j6ryno9ha43-4taqjvje6wn9okoy7fuf6l77p 192.168.65.3:2377
+
+To add a manager to this swarm, run 'docker swarm join-token manager' and follow the instructions.
+
+Run a simple Docker service that uses an alpine-based filesystem, and isolates a ping to 8.8.8.8:
+
+
+
+PS D:\github\networking\virtualization-containers\3kubernetes\kubernetes-ordockerswarmmode\step1-dockerstackdeploy> docker service create --name demo alpine:3.5 ping 8.8.8.8
+xbs4v6sq8q8tqm2fjzk52x42n
+overall progress: 1 out of 1 tasks
+1/1: running   [==================================================>]
+verify: Service converged
+
+
+Check that your service created one running container:
+
+docker service ps demo
+
+
+
+PS D:\github\networking\virtualization-containers\3kubernetes\kubernetes-ordockerswarmmode\step1-dockerstackdeploy> docker service ps demo
+ID                  NAME                IMAGE               NODE                DESIRED STATE       CURRENT STATE            ERROR               PORTS
+tkj58vljbhtu        demo.1              alpine:3.5          docker-desktop      Running             Running 22 seconds ago
+
+
+
+PS D:\github\networking\virtualization-containers\3kubernetes\kubernetes-ordockerswarmmode\step1-dockerstackdeploy> docker service logs demo
+demo.1.tkj58vljbhtu@docker-desktop    | PING 8.8.8.8 (8.8.8.8): 56 data bytes
+demo.1.tkj58vljbhtu@docker-desktop    | 64 bytes from 8.8.8.8: seq=0 ttl=37 time=21.707 ms
+demo.1.tkj58vljbhtu@docker-desktop    | 64 bytes from 8.8.8.8: seq=1 ttl=37 time=21.677 ms
+demo.1.tkj58vljbhtu@docker-desktop    | 64 bytes from 8.8.8.8: seq=2 ttl=37 time=21.745 ms
+demo.1.tkj58vljbhtu@docker-desktop    | 64 bytes from 8.8.8.8: seq=3 ttl=37 time=21.513 ms
+demo.1.tkj58vljbhtu@docker-desktop    | 64 bytes from 8.8.8.8: seq=4 ttl=37 time=21.728 ms
+demo.1.tkj58vljbhtu@docker-desktop    | 64 bytes from 8.8.8.8: seq=5 ttl=37 time=21.876 ms
+demo.1.tkj58vljbhtu@docker-desktop    | 64 bytes from 8.8.8.8: seq=6 ttl=37 time=21.902 ms
+demo.1.tkj58vljbhtu@docker-desktop    | 64 bytes from 8.8.8.8: seq=7 ttl=37 time=21.940 ms
+demo.1.tkj58vljbhtu@docker-desktop    | 64 bytes from 8.8.8.8: seq=8 ttl=37 time=21.742 ms
+demo.1.tkj58vljbhtu@docker-desktop    | 64 bytes from 8.8.8.8: seq=9 ttl=37 time=21.835 ms
+demo.1.tkj58vljbhtu@docker-desktop    | 64 bytes from 8.8.8.8: seq=10 ttl=37 time=21.422 ms
+demo.1.tkj58vljbhtu@docker-desktop    | 64 bytes from 8.8.8.8: seq=11 ttl=37 time=21.728 ms
+demo.1.tkj58vljbhtu@docker-desktop    | 64 bytes from 8.8.8.8: seq=12 ttl=37 time=21.560 ms
+demo.1.tkj58vljbhtu@docker-desktop    | 64 bytes from 8.8.8.8: seq=13 ttl=37 time=21.856 ms
+demo.1.tkj58vljbhtu@docker-desktop    | 64 bytes from 8.8.8.8: seq=14 ttl=37 time=21.702 ms
+demo.1.tkj58vljbhtu@docker-desktop    | 64 bytes from 8.8.8.8: seq=15 ttl=37 time=21.459 ms
+demo.1.tkj58vljbhtu@docker-desktop    | 64 bytes from 8.8.8.8: seq=16 ttl=37 time=21.945 ms
+demo.1.tkj58vljbhtu@docker-desktop    | 64 bytes from 8.8.8.8: seq=17 ttl=37 time=21.763 ms
+demo.1.tkj58vljbhtu@docker-desktop    | 64 bytes from 8.8.8.8: seq=18 ttl=37 time=21.919 ms
+demo.1.tkj58vljbhtu@docker-desktop    | 64 bytes from 8.8.8.8: seq=19 ttl=37 time=21.955 ms
+demo.1.tkj58vljbhtu@docker-desktop    | 64 bytes from 8.8.8.8: seq=20 ttl=37 time=21.721 ms
+demo.1.tkj58vljbhtu@docker-desktop    | 64 bytes from 8.8.8.8: seq=21 ttl=37 time=21.620 ms
+demo.1.tkj58vljbhtu@docker-desktop    | 64 bytes from 8.8.8.8: seq=22 ttl=37 time=22.130 ms
+demo.1.tkj58vljbhtu@docker-desktop    | 64 bytes from 8.8.8.8: seq=23 ttl=37 time=21.929 ms
+demo.1.tkj58vljbhtu@docker-desktop    | 64 bytes from 8.8.8.8: seq=24 ttl=37 time=21.779 ms
+demo.1.tkj58vljbhtu@docker-desktop    | 64 bytes from 8.8.8.8: seq=25 ttl=37 time=21.797 ms
+demo.1.tkj58vljbhtu@docker-desktop    | 64 bytes from 8.8.8.8: seq=26 ttl=37 time=21.596 ms
+demo.1.tkj58vljbhtu@docker-desktop    | 64 bytes from 8.8.8.8: seq=27 ttl=37 time=21.905 ms
+demo.1.tkj58vljbhtu@docker-desktop    | 64 bytes from 8.8.8.8: seq=28 ttl=37 time=21.787 ms
+demo.1.tkj58vljbhtu@docker-desktop    | 64 bytes from 8.8.8.8: seq=29 ttl=37 time=21.755 ms
+demo.1.tkj58vljbhtu@docker-desktop    | 64 bytes from 8.8.8.8: seq=30 ttl=37 time=21.728 ms
+demo.1.tkj58vljbhtu@docker-desktop    | 64 bytes from 8.8.8.8: seq=31 ttl=37 time=21.789 ms
+demo.1.tkj58vljbhtu@docker-desktop    | 64 bytes from 8.8.8.8: seq=32 ttl=37 time=21.921 ms
+demo.1.tkj58vljbhtu@docker-desktop    | 64 bytes from 8.8.8.8: seq=33 ttl=37 time=21.816 ms
+demo.1.tkj58vljbhtu@docker-desktop    | 64 bytes from 8.8.8.8: seq=34 ttl=37 time=21.752 ms
+demo.1.tkj58vljbhtu@docker-desktop    | 64 bytes from 8.8.8.8: seq=35 ttl=37 time=21.762 ms
+demo.1.tkj58vljbhtu@docker-desktop    | 64 bytes from 8.8.8.8: seq=36 ttl=37 time=22.039 ms
+demo.1.tkj58vljbhtu@docker-desktop    | 64 bytes from 8.8.8.8: seq=37 ttl=37 time=22.012 ms
+demo.1.tkj58vljbhtu@docker-desktop    | 64 bytes from 8.8.8.8: seq=38 ttl=37 time=21.849 ms
+demo.1.tkj58vljbhtu@docker-desktop    | 64 bytes from 8.8.8.8: seq=39 ttl=37 time=21.998 ms
+demo.1.tkj58vljbhtu@docker-desktop    | 64 bytes from 8.8.8.8: seq=40 ttl=37 time=21.809 ms
+demo.1.tkj58vljbhtu@docker-desktop    | 64 bytes from 8.8.8.8: seq=41 ttl=37 time=21.891 ms
+
+
+
+Finally, tear down your test service:
+
+docker service rm demo
+
+PS D:\github\networking\virtualization-containers\3kubernetes\kubernetes-ordockerswarmmode\step1-dockerstackdeploy> docker service rm demo
+demo
+
+Conclusion
+At this point, you’ve confirmed that you can run simple containerized workloads in Kubernetes and Swarm. The next step will be to write the Kubernetes yaml that describes how to run and manage these containers on Kubernetes.

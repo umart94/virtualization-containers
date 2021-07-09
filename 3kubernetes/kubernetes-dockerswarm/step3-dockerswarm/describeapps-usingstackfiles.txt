@@ -1,0 +1,19 @@
+Describe apps using stack files
+Swarm never creates individual containers like we did in the previous step of this tutorial. Instead, all Swarm workloads are scheduled as services, which are scalable groups of containers with added networking features maintained automatically by Swarm. Furthermore, all Swarm objects can and should be described in manifests called stack files. These YAML files describe all the components and configurations of your Swarm app, and can be used to easily create and destroy your app in any Swarm environment.
+
+Let’s write a simple stack file to run and manage our bulletin board. Place the following in a file called bb-stack.yaml:
+
+
+version: '3.7'
+
+services:
+  bb-app:
+    image: bulletinboard:1.0
+    ports:
+      - "8000:8080"
+
+
+
+In this Swarm YAML file, we have just one object: a service, describing a scalable group of identical containers. In this case, you’ll get just one container (the default), and that container will be based on your bulletinboard:1.0 image created in Part 2 of the Quickstart tutorial. In addition, We’ve asked Swarm to forward all traffic arriving at port 8000 on our development machine to port 8080 inside our bulletin board container.
+
+

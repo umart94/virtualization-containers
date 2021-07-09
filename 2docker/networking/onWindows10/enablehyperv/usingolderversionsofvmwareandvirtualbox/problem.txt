@@ -1,0 +1,4 @@
+enabling hyperv and installing docker in windows host operating system running vmware with multiple other virtual network adapters 
+
+the host windows network disconnects.
+those virtual machines have no network.

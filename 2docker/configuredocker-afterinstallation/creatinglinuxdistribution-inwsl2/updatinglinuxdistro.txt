@@ -1,0 +1,31 @@
+Update and upgrade packages
+Most distributions ship with an empty or minimal package catalog. We strongly recommend regularly updating your package catalog and upgrading your installed packages using your distribution's preferred package manager. For Debian/Ubuntu, use apt:
+
+Bash
+
+Copy
+sudo apt update && sudo apt upgrade
+
+
+Windows does not automatically update or upgrade your Linux distribution(s). This is a task that most Linux users prefer to control themselves.
+
+
+Reset your Linux password
+To change your password, open your Linux distribution (Ubuntu for example) and enter the command: passwd
+
+You will be asked to enter your current password, then asked to enter your new password, and then to confirm your new password.
+
+Forgot your password
+If you forgot the password for your Linux distribution:
+
+Open PowerShell and enter the root of your default WSL distribution using the command: wsl -u root
+
+If you need to update the forgotten password on a distribution that is not your default, use the command: wsl -d Debian -u root, replacing Debian with the name of your targeted distribution.
+
+Once your WSL distribution has been opened at the root level inside PowerShell, you can use this command to update your password: passwd <WSLUsername> where <WSLUsername> is the username of the account in the DISTRO whose password you've forgotten.
+
+You will be prompted to enter a new UNIX password and then confirm that password. Once you're told that the password has updated successfully, close WSL inside of PowerShell using the command: exit
+
+ Note
+
+If you are running an early version of Windows operating system, like 1703 (Creators Update) or 1709 (Fall Creators Update), see the archived version of this user account update doc.

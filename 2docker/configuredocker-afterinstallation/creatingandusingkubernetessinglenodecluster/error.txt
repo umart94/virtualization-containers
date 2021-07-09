@@ -1,0 +1,16 @@
+run
+
+PS C:\WINDOWS\system32> kubectl config get-contexts
+CURRENT   NAME             CLUSTER          AUTHINFO         NAMESPACE
+*         docker-desktop   docker-desktop   docker-desktop
+PS C:\WINDOWS\system32> kubectl config use-context docker-desktop
+Switched to context "docker-desktop".
+
+
+before enabling kubernetes..
+
+also, we need to restart docker
+
+then both docker and kubernetes will be in running state.
+
+

@@ -1,0 +1,11 @@
+we will use the same bulletin app here as well
+since we deployed it on docker, before deploying to kubernetes cluster in
+swarm mode, we have to stop AND THEN DELETE THE DOCKER CONTAINER FOR BULLETIN BOARD.
+
+
+now , to actually run the application in kubernetes we have two ways
+
+1. Kubernetes
+2. Docker SWARM
+
+we also need to configure orchestration.

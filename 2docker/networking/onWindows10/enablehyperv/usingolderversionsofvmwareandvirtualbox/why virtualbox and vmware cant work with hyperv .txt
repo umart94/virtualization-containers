@@ -1,0 +1,16 @@
+VirtualBox and VMware Workstation (and VMware Player) are "level 2 hypervisors." Hyper-V and VMware ESXi are "level 1 hypervisors."
+
+The main difference is that a level 2 hypervisor is an application running inside an existing OS, while a level 1 hypervisor is the OS itself.
+
+This means that when you enable Hyper-V, your Windows 10 "host" becomes a virtual machine. A special one, but nonetheless a virtual machine.
+
+So your question would more aptly be: "Why don't VirtualBox and VMware Workstation work inside a Hyper-V virtual machine?" One can answer because as a VM, the Intel VT-X instruction are no longer accessible from your virtual machine, only the host has access to it.
+
+QEMU works because it does not do virtualization but emulation, which is completely different and explains why QEMU is painfully slow. Virtualization is the process of running a complete isolated machine inside another, but with the help of the processor. This requires the virtual machine and the host to be instruction compatible.
+
+Emulation is the process of running any machine inside a running OS, there is no platform restriction, and is why QEMU can run an ARM machine on an amd64 platform.
+
+Note: QEMU has 2 operating modes:
+
+it can work as an emulator, this is the mode explained above
+it can work as virtualization software with the help of KVM if the guest architecture is compatible with the host's and if the VT instruction is present of course.

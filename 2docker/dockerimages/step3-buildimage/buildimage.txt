@@ -1,0 +1,74 @@
+Build and test your image
+Now that you have some source code and a Dockerfile, it’s time to build your first image, and make sure the containers launched from it work as expected.
+
+Make sure you’re in the directory node-bulletin-board/bulletin-board-app in a terminal or PowerShell using the cd command. Run the following command to build your bulletin board image:
+
+docker build --tag bulletinboard:1.0 .
+
+
+
+WE DO NOT NEED TO CHANGE ANY FILE IN THE CLONED GIT REPO.
+THE DOCKERFILE PATHS ARE NOT FOR THE HOST, BUT THEY ARE THE SETTINGS FOR THE IMAGE. (that will be deployed on docker / wsl2 / kubernetes)
+
+
+so, if you have to deploy on either windows or linux (change those workdir or any other paths in dockerfile commands accordingly.. else partially the docker file will run and it will give errors)
+
+
+
+
+
+we get this output :
+
+PS D:\github\programming\nodejs\nodejs\bulletinboard\node-bulletin-board\bulletin-board-app> docker build --tag bulletinboard:1.0 .
+[+] Building 79.1s (10/10) FINISHED
+ => [internal] load build definition from Dockerfile                                                                                                                                                                                    1.4s
+ => => transferring dockerfile: 176B                                                                                                                                                                                                    0.2s
+ => [internal] load .dockerignore                                                                                                                                                                                                       1.8s
+ => => transferring context: 2B                                                                                                                                                                                                         0.0s
+ => [internal] load metadata for docker.io/library/node:current-slim                                                                                                                                                                    4.5s
+ => [internal] load build context                                                                                                                                                                                                       0.8s
+ => => transferring context: 33.15kB                                                                                                                                                                                                    0.1s
+ => [1/5] FROM docker.io/library/node:current-slim@sha256:7bf36131ed121f8113794e83a665bdf5d81cdf77c07672a6c1620fd71675bc8c                                                                                                             52.4s
+ => => resolve docker.io/library/node:current-slim@sha256:7bf36131ed121f8113794e83a665bdf5d81cdf77c07672a6c1620fd71675bc8c                                                                                                              0.0s
+ => => sha256:ef8e7f9710a6311bb49a5dc6f4667c216785f35d6c02e927dd9cb75a95ebe171 1.37kB / 1.37kB                                                                                                                                          0.0s
+ => => sha256:9ac9e9f30b2c031c5c6c8e3292b3cb06b5b548a45e7aaf86e921a6c7701be5bc 7.08kB / 7.08kB                                                                                                                                          0.0s
+ => => sha256:e50c3c9ef5a201a24959788dcbc7ebf88d95c63e132a4d7396ce541127afd88e 22.53MB / 22.53MB                                                                                                                                       38.7s
+ => => sha256:7d035f3b60685c603de659845d2b4006f2703337b95ef0c08ddf5c730c8a0db1 4.15kB / 4.15kB                                                                                                                                          0.7s
+ => => sha256:1758a95126e3951a79c239b073ede78700d15d158f5f57b90cb11e9f9d276ed5 34.13MB / 34.13MB                                                                                                                                       48.8s
+ => => sha256:7bf36131ed121f8113794e83a665bdf5d81cdf77c07672a6c1620fd71675bc8c 776B / 776B                                                                                                                                              0.0s
+ => => sha256:d39676814e5a6d09f9c0dea0bbbe7ec571b6f0e7eb3b7abe9cdb2219cd3ff346 2.82MB / 2.82MB                                                                                                                                          9.0s
+ => => sha256:e7aa22215d062dbb8173ead086271ee366259cb1efb9f43febe4130456f9dc4e 295B / 295B                                                                                                                                             10.2s
+ => => extracting sha256:e50c3c9ef5a201a24959788dcbc7ebf88d95c63e132a4d7396ce541127afd88e                                                                                                                                               0.7s
+ => => extracting sha256:7d035f3b60685c603de659845d2b4006f2703337b95ef0c08ddf5c730c8a0db1                                                                                                                                               0.0s
+ => => extracting sha256:1758a95126e3951a79c239b073ede78700d15d158f5f57b90cb11e9f9d276ed5                                                                                                                                               0.8s
+ => => extracting sha256:d39676814e5a6d09f9c0dea0bbbe7ec571b6f0e7eb3b7abe9cdb2219cd3ff346                                                                                                                                               0.1s
+ => => extracting sha256:e7aa22215d062dbb8173ead086271ee366259cb1efb9f43febe4130456f9dc4e                                                                                                                                               0.0s
+ => [2/5] WORKDIR /usr/src/app                                                                                                                                                                                                          3.1s
+ => [3/5] COPY package.json .                                                                                                                                                                                                           0.8s
+ => [4/5] RUN npm install                                                                                                                                                                                                              11.4s
+ => [5/5] COPY . .                                                                                                                                                                                                                      1.0s
+ => exporting to image                                                                                                                                                                                                                  2.9s
+ => => exporting layers                                                                                                                                                                                                                 2.2s
+ => => writing image sha256:f934ace45f927ba32baebccafe4445268f72305ef932e1aa7aa84bf983014397                                                                                                                                            0.1s
+ => => naming to docker.io/library/bulletinboard:1.0
+
+
+
+
+You’ll see Docker step through each instruction in your Dockerfile, building up your image as it goes. If successful, the build process should end with a message Successfully tagged bulletinboard:1.0.
+
+Windows users:
+
+This example uses Linux containers. Make sure your environment is running Linux containers by right-clicking on the Docker logo in your system tray, and clicking Switch to Linux containers. Don’t worry - all the commands in this tutorial work the exact same way for Windows containers.
+
+You may receive a message titled ‘SECURITY WARNING’ after running the image, noting the read, write, and execute permissions being set for files added to your image. We aren’t handling any sensitive information in this example, so feel free to disregard the warning in this example.
+
+
+
+
+
+
+
+
+
+

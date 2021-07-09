@@ -1,0 +1,13 @@
+Docker, Containers use a seperate technology called HyperV
+
+it is a native hypervisor running inside the HOST operating system,
+
+it emulates THE HOST OPERATING SYSTEM (PORTIONS OF IT) , so we have :
+
+1. Host Hardware
+2. Host Operating System, Running Native Hypervisor HyperV
+3. Docker software, installed in Microsoft Windows , PaaS, all containers are run by the single operating system kernel, running the hyperV as well as docker
+
+THUS, in this way , we dont have to have seperate operating systems and virtual machines, we use less resources.
+
+4. Web Application Project Running in Container in Docker.

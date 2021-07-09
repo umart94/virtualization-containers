@@ -1,0 +1,10 @@
+To enable Kubernetes support and install a standalone instance of Kubernetes running as a Docker container, select Enable Kubernetes.
+
+this will install kubernetes from the internet inside docker so wait for it to finish.
+
+then , we can also reset the kubernetes cluster.
+
+also ,
+
+
+To set Kubernetes as the default orchestrator, select Deploy Docker Stacks to Kubernetes by default.

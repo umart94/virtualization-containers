@@ -1,0 +1,50 @@
+The Kubernetes API
+The core of Kubernetes' control plane is the API server. The API server exposes an HTTP API that lets end users, different parts of your cluster, and external components communicate with one another.
+
+The Kubernetes API lets you query and manipulate the state of objects in the Kubernetes API (for example: Pods, Namespaces, ConfigMaps, and Events).
+
+Most operations can be performed through the kubectl command-line interface or other command-line tools, such as kubeadm, which in turn use the API. However, you can also access the API directly using REST calls.
+
+Consider using one of the client libraries if you are writing an application using the Kubernetes API.
+
+OpenAPI specification
+Complete API details are documented using OpenAPI.
+
+The Kubernetes API server serves an OpenAPI spec via the /openapi/v2 endpoint. You can request the response format using request headers as follows:
+
+Header	Possible values	Notes
+Accept-Encoding	gzip	not supplying this header is also acceptable
+Accept	application/com.github.proto-openapi.spec.v2@v1.0+protobuf	mainly for intra-cluster use
+application/json	default
+*	serves application/json
+Kubernetes implements an alternative Protobuf based serialization format that is primarily intended for intra-cluster communication. For more information about this format, see the Kubernetes Protobuf serialization design proposal and the Interface Definition Language (IDL) files for each schema located in the Go packages that define the API objects.
+
+API changes
+Any system that is successful needs to grow and change as new use cases emerge or existing ones change. Therefore, Kubernetes has designed its features to allow the Kubernetes API to continuously change and grow. The Kubernetes project aims to not break compatibility with existing clients, and to maintain that compatibility for a length of time so that other projects have an opportunity to adapt.
+
+In general, new API resources and new resource fields can be added often and frequently. Elimination of resources or fields requires following the API deprecation policy.
+
+What constitutes a compatible change, and how to change the API, are detailed in API changes.
+
+API groups and versioning
+To make it easier to eliminate fields or restructure resource representations, Kubernetes supports multiple API versions, each at a different API path, such as /api/v1 or /apis/rbac.authorization.k8s.io/v1alpha1.
+
+Versioning is done at the API level rather than at the resource or field level to ensure that the API presents a clear, consistent view of system resources and behavior, and to enable controlling access to end-of-life and/or experimental APIs.
+
+To make it easier to evolve and to extend its API, Kubernetes implements API groups that can be enabled or disabled.
+
+API resources are distinguished by their API group, resource type, namespace (for namespaced resources), and name. The API server may serve the same underlying data through multiple API version and handle the conversion between API versions transparently. All these different versions are actually representations of the same resource. For example, suppose there are two versions v1 and v1beta1 for the same resource. An object created by the v1beta1 version can then be read, updated, and deleted by either the v1beta1 or the v1 versions.
+
+Refer to API versions reference for more details on the API version level definitions.
+
+API Extension
+The Kubernetes API can be extended in one of two ways:
+
+Custom resources let you declaratively define how the API server should provide your chosen resource API.
+You can also extend the Kubernetes API by implementing an aggregation layer.
+What's next
+Learn how to extend the Kubernetes API by adding your own CustomResourceDefinition.
+Controlling Access To The Kubernetes API describes how the cluster manages authentication and authorization for API access.
+Learn about API endpoints, resource types and samples by reading API Reference.
+Feedback
+Was this page helpful?

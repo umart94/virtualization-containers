@@ -1,0 +1,103 @@
+Deploy your application to Swarm:
+
+(once again we need to stop, then delete the docker container as well as the kubernetes service we created)
+
+
+kubectl delete -f bb.yaml
+
+stop and delete the docker container from docker-desktop.
+
+or through command line using 
+
+docker rm --force bb
+
+
+Either run kubernetes or run as swarm service, not both..
+
+
+so recreate the docker container.
+
+docker build --tag bulletinboard:1.0 .
+
+docker run --publish 8000:8080 --detach --name bb bulletinboard:1.0
+
+
+Deploy your application to Swarm:
+
+docker stack deploy -c bb-stack.yaml demo
+
+
+PS D:\github\programming\nodejs\nodejs\bulletinboard\node-bulletin-board\bulletin-board-app> docker stack deploy -c bb-stack.yaml demo
+failed to find a Stack API version
+
+
+
+This error is because we enabled deployment to kubernetes by default..
+
+(change the setting, and remember to change it again afterwards.)
+(if you again want to deploy on kubernetes)
+
+I have the same problem on Docker Desktop (for Windows). I managed to use the stack command after I have disabled "Deploy Docker Stack to Kubernetes by default" setting under "Kubernetes" category in the docker desktop's settings. I haven't yet tried to enabled it back and see if I still have the error, but it is worth trying.
+
+
+
+so now , if 
+docker swarm init worked
+and swarm is active
+
+then we should see this output :
+
+
+PS D:\github\programming\nodejs\nodejs\bulletinboard\node-bulletin-board\bulletin-board-app> docker stack deploy -c bb-stack.yaml demo
+Creating network demo_default
+Creating service demo_bb-app
+
+
+If all goes well, Swarm will report creating all your stack objects with no complaints:
+
+Creating network demo_default
+Creating service demo_bb-app
+
+
+Notice that in addition to your service, Swarm also creates a Docker network by default to isolate the containers deployed as part of your stack.
+
+Make sure everything worked by listing your service:
+
+docker service ls
+
+PS D:\github\programming\nodejs\nodejs\bulletinboard\node-bulletin-board\bulletin-board-app> docker service ls
+ID                  NAME                MODE                REPLICAS            IMAGE               PORTS
+7jnfod82zlrz        demo_bb-app         replicated          1/1                 bulletinboard:1.0   *:8000->8080/tcp
+
+If all has gone well, your service will report with 1/1 of its replicas created:
+
+ID                  NAME                MODE                REPLICAS            IMAGE               PORTS
+il7elwunymbs        demo_bb-app         replicated          1/1                 bulletinboard:1.0   *:8000->8080/tcp
+This indicates 1/1 containers you asked for as part of your services are up and running. Also, we see that port 8000 on your development machine is getting forwarded to port 8080 in your bulletin board container.
+
+Open a browser and visit your bulletin board at localhost:8000; you should see your bulletin board, the same as when we ran it as a stand-alone container in Part 2 of the Quickstart tutorial.
+
+Once satisfied, tear down your application:
+
+PS D:\github\programming\nodejs\nodejs\bulletinboard\node-bulletin-board\bulletin-board-app> docker stack rm demo
+Removing service demo_bb-app
+Removing network demo_default
+
+
+
+
+
+
+
+Conclusion
+At this point, we have successfully used Docker Desktop to deploy our application to a fully-featured Swarm environment on our development machine. We haven’t done much with Swarm yet, but the door is now open: you can begin adding other components to your app and taking advantage of all the features and power of Swarm, right on your own machine.
+
+In addition to deploying to Swarm, we have also described our application as a stack file. This simple text file contains everything we need to create our application in a running state; we can check it into version control and share it with our colleagues, allowing us to distribute our applications to other clusters (like the testing and production clusters that probably come after our development environments) easily.
+
+
+
+
+
+
+
+

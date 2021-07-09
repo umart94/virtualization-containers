@@ -1,0 +1,96 @@
+Enable Kubernetes
+In order to confirm that Kubernetes is up and running, create a text file called pod.yaml with the following content:
+
+apiVersion: v1
+kind: Pod
+metadata:
+  name: demo
+spec:
+  containers:
+  - name: testpod
+    image: alpine:3.5
+    command: ["ping", "8.8.8.8"]
+
+
+
+
+
+
+This describes a pod with a single container, isolating a simple ping to 8.8.8.8.
+
+In PowerShell, navigate to where you created pod.yaml and create your pod:
+
+kubectl apply -f pod.yaml
+
+
+PS D:\github\networking\virtualization-containers\3kubernetes\kubernetes-ordockerswarmmode\step1-dockerstackdeploy> kubectl apply -f pod.yaml
+pod/demo created
+
+
+Check that your pod is up and running:
+
+kubectl get pods
+
+
+PS D:\github\networking\virtualization-containers\3kubernetes\kubernetes-ordockerswarmmode\step1-dockerstackdeploy> kubectl get pods
+NAME   READY   STATUS    RESTARTS   AGE
+demo   1/1     Running   0          32s
+
+
+
+Check that you get the logs you’d expect for a ping process:
+
+kubectl logs demo
+PS D:\github\networking\virtualization-containers\3kubernetes\kubernetes-ordockerswarmmode\step1-dockerstackdeploy> kubectl logs demo
+PING 8.8.8.8 (8.8.8.8): 56 data bytes
+64 bytes from 8.8.8.8: seq=0 ttl=37 time=22.014 ms
+64 bytes from 8.8.8.8: seq=1 ttl=37 time=21.756 ms
+64 bytes from 8.8.8.8: seq=2 ttl=37 time=21.839 ms
+64 bytes from 8.8.8.8: seq=3 ttl=37 time=21.572 ms
+64 bytes from 8.8.8.8: seq=4 ttl=37 time=21.940 ms
+64 bytes from 8.8.8.8: seq=5 ttl=37 time=21.906 ms
+64 bytes from 8.8.8.8: seq=6 ttl=37 time=21.763 ms
+64 bytes from 8.8.8.8: seq=7 ttl=37 time=21.870 ms
+64 bytes from 8.8.8.8: seq=8 ttl=37 time=21.703 ms
+64 bytes from 8.8.8.8: seq=9 ttl=37 time=22.109 ms
+64 bytes from 8.8.8.8: seq=10 ttl=37 time=21.846 ms
+64 bytes from 8.8.8.8: seq=11 ttl=37 time=22.234 ms
+64 bytes from 8.8.8.8: seq=12 ttl=37 time=21.925 ms
+64 bytes from 8.8.8.8: seq=13 ttl=37 time=22.092 ms
+64 bytes from 8.8.8.8: seq=14 ttl=37 time=21.838 ms
+64 bytes from 8.8.8.8: seq=15 ttl=37 time=21.974 ms
+64 bytes from 8.8.8.8: seq=16 ttl=37 time=21.759 ms
+64 bytes from 8.8.8.8: seq=17 ttl=37 time=22.171 ms
+64 bytes from 8.8.8.8: seq=18 ttl=37 time=21.929 ms
+64 bytes from 8.8.8.8: seq=19 ttl=37 time=22.005 ms
+64 bytes from 8.8.8.8: seq=20 ttl=37 time=22.002 ms
+64 bytes from 8.8.8.8: seq=21 ttl=37 time=21.659 ms
+64 bytes from 8.8.8.8: seq=22 ttl=37 time=21.548 ms
+64 bytes from 8.8.8.8: seq=23 ttl=37 time=21.587 ms
+64 bytes from 8.8.8.8: seq=24 ttl=37 time=21.756 ms
+64 bytes from 8.8.8.8: seq=25 ttl=37 time=21.696 ms
+64 bytes from 8.8.8.8: seq=26 ttl=37 time=21.654 ms
+64 bytes from 8.8.8.8: seq=27 ttl=37 time=21.629 ms
+64 bytes from 8.8.8.8: seq=28 ttl=37 time=21.549 ms
+64 bytes from 8.8.8.8: seq=29 ttl=37 time=21.995 ms
+64 bytes from 8.8.8.8: seq=30 ttl=37 time=21.841 ms
+64 bytes from 8.8.8.8: seq=31 ttl=37 time=21.826 ms
+64 bytes from 8.8.8.8: seq=32 ttl=37 time=21.775 ms
+64 bytes from 8.8.8.8: seq=33 ttl=37 time=21.756 ms
+64 bytes from 8.8.8.8: seq=34 ttl=37 time=21.937 ms
+64 bytes from 8.8.8.8: seq=35 ttl=37 time=21.859 ms
+64 bytes from 8.8.8.8: seq=36 ttl=37 time=21.735 ms
+64 bytes from 8.8.8.8: seq=37 ttl=37 time=21.709 ms
+64 bytes from 8.8.8.8: seq=38 ttl=37 time=21.977 ms
+64 bytes from 8.8.8.8: seq=39 ttl=37 time=21.886 ms
+
+
+PS D:\github\networking\virtualization-containers\3kubernetes\kubernetes-ordockerswarmmode\step1-dockerstackdeploy> kubectl delete -f pod.yaml
+pod "demo" deleted
+PS D:\github\networking\virtualization-containers\3kubernetes\kubernetes-ordockerswarmmode\step1-dockerstackdeploy> kubectl delete -f pod.yaml
+Error from server (NotFound): error when deleting "pod.yaml": pods "demo" not found
+
+
+(it may get stuck deleting pod, so re-run the command to verify that it was deleted.)
+
+

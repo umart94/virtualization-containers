@@ -1,0 +1,9 @@
+each virtual machine has to have a seperate guest operating system, on top of which we will install our application.
+
+
+
+1. Host Hardware
+2. Host Operating System
+3. Hypervisor (VMWare , VirtualBox)
+4. Guest Operating System
+5. Our Web Application Project

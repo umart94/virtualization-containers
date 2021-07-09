@@ -1,0 +1,15 @@
+Develop with Docker and WSL 2
+The following section describes how to start developing your applications using Docker and WSL 2. We recommend that you have your code in your default Linux distribution for the best development experience using Docker and WSL 2. After you have enabled WSL 2 on Docker Desktop, you can start working with your code inside the Linux distro and ideally with your IDE still in Windows. This workflow can be pretty straightforward if you are using VSCode.
+
+Open VSCode and install the Remote - WSL extension. This extension allows you to work with a remote server in the Linux distro and your IDE client still on Windows.
+Now, you can start working in VSCode remotely. To do this, open your terminal and type:
+
+wsl
+
+code .
+
+This opens a new VSCode connected remotely to your default Linux distro which you can check in the bottom corner of the screen.
+
+Alternatively, you can type the name of your default Linux distro in your Start menu, open it, and then run code .
+
+When you are in VSCode, you can use the terminal in VSCode to pull your code and start working natively from your Windows machine.

@@ -1,0 +1,57 @@
+Deploy and check your application
+In a terminal, navigate to where you created bb.yaml and deploy your application to Kubernetes:
+
+kubectl apply -f bb.yaml
+
+you should see output that looks like the following, indicating your Kubernetes objects were created successfully:
+
+deployment.apps/bb-demo created
+service/bb-entrypoint created
+
+PS D:\github\programming\nodejs\nodejs\bulletinboard\node-bulletin-board\bulletin-board-app> kubectl apply -f bb.yaml
+deployment.apps/bb-demo created
+service/bb-entrypoint created
+
+Make sure everything worked by listing your deployments:
+
+kubectl get deployments
+
+
+PS D:\github\programming\nodejs\nodejs\bulletinboard\node-bulletin-board\bulletin-board-app> kubectl get deployments
+NAME      READY   UP-TO-DATE   AVAILABLE   AGE
+bb-demo   1/1     1            1           36s
+
+
+This indicates all one of the pods you asked for in your YAML are up and running. Do the same check for your services:
+
+
+kubectl get services
+
+
+
+PS D:\github\programming\nodejs\nodejs\bulletinboard\node-bulletin-board\bulletin-board-app> kubectl get services
+NAME            TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)          AGE
+bb-entrypoint   NodePort    10.102.67.243   <none>        8080:30001/TCP   67s
+kubernetes      ClusterIP   10.96.0.1       <none>        443/TCP          60m
+
+
+In addition to the default kubernetes service, we see our bb-entrypoint service, accepting traffic on port 30001/TCP.
+
+Open a browser and visit your bulletin board at localhost:30001; you should see your bulletin board, the same as when we ran it as a stand-alone container in Part 2 of the Quickstart tutorial.
+
+
+
+
+
+Once satisfied, tear down your application:
+
+kubectl delete -f bb.yaml
+
+
+
+
+Conclusion
+At this point, we have successfully used Docker Desktop to deploy our application to a fully-featured Kubernetes environment on our development machine. We haven’t done much with Kubernetes yet, but the door is now open; you can begin adding other components to your app and taking advantage of all the features and power of Kubernetes, right on your own machine.
+
+In addition to deploying to Kubernetes, we have also described our application as a Kubernetes YAML file. This simple text file contains everything we need to create our application in a running state. We can check it into version control and share it with our colleagues, allowing us to distribute our applications to other clusters (like the testing and production clusters that probably come after our development environments) easily.
+

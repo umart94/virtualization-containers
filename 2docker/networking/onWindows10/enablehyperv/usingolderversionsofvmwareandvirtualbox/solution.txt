@@ -1,0 +1,21 @@
+install either vmware, or virtualbox, or docker
+
+OR keep docker + vmware
+or keep docker + virtualbox
+----------------------------------------
+
+UNINSTALL VMWARE AND VIRTUAL BOX OLDER VERSIONS
+THESE DO NOT SUPPORT HYPERV
+
+
+HYPERV NEEDS to be enabled before we can use virtualbox and vmware with hyperv mode.
+
+
+in turn windows features on and off, enable all hyperv network+gui features
+
+furthermore you can, 
+
+1. configure hyperv virtual switch
+2. configure hyperv manager to use correct network settings
+3. create a virtual switch , virtual network with hyperv-manager
+4. Create a virtual switch for Hyper-V virtual machines

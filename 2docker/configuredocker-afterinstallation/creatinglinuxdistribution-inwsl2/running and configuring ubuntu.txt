@@ -1,0 +1,79 @@
+launch ubuntu app that we just installed from microsoft store with administrator privileges.
+
+
+wait for it to configure
+
+then create a username and password.
+
+
+Welcome to Ubuntu 20.04.1 LTS (GNU/Linux 4.19.128-microsoft-standard x86_64)
+
+ * Documentation:  https://help.ubuntu.com
+ * Management:     https://landscape.canonical.com
+ * Support:        https://ubuntu.com/advantage
+
+  System information as of Tue Dec 15 12:05:37 PKT 2020
+
+  System load:  0.29               Processes:             8
+  Usage of /:   0.4% of 250.98GB   Users logged in:       0
+  Memory usage: 0%                 IPv4 address for eth0: 172.31.27.89
+  Swap usage:   0%
+
+1 update can be installed immediately.
+0 of these updates are security updates.
+To see these additional updates run: apt list --upgradable
+
+
+The list of available updates is more than a week old.
+To check for new updates run: sudo apt update
+
+
+This message is shown once once a day. To disable it please create the
+/home/umar/.hushlogin file.
+umar@DESKTOP-GN0170R:~$
+
+
+
+
+Set your distribution version to WSL 1 or WSL 2
+You can check the WSL version assigned to each of the Linux distributions you have installed by opening the PowerShell command line and entering the command (only available in Windows Build 18362 or higher): wsl -l -v
+
+PowerShell
+
+Copy
+wsl --list --verbose
+
+
+Now Run 
+
+PS C:\WINDOWS\system32> wsl --list --verbose
+  NAME                   STATE           VERSION
+* docker-desktop         Stopped         2
+  docker-desktop-data    Stopped         2
+  Ubuntu                 Running         2
+
+
+
+To set a distribution to be backed by either version of WSL please run:
+
+PowerShell
+
+Copy
+wsl --set-version <distribution name> <versionNumber>
+
+
+Make sure to replace <distribution name> with the actual name of your distribution and <versionNumber> with the number '1' or '2'. You can change back to WSL 1 at anytime by running the same command as above but replacing the '2' with a '1'.
+
+Additionally, if you want to make WSL 2 your default architecture you can do so with this command:
+
+PowerShell
+
+Copy
+wsl --set-default-version 2
+
+
+This will set the version of any new distribution installed to WSL 2.
+
+
+
+

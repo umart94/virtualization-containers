@@ -1,0 +1,43 @@
+Choose the Option WSL2
+WSL 2 provides better performance than the legacy Hyper-V backend
+
+now go to settings -> resources -> wsl2 integration.
+choose enable integration with my default wsl2 distro
+
+
+In WSL 2 mode, you can configure which WSL 2 distributions will have the Docker WSL integration.
+
+By default, the integration will be enabled on your default WSL distribution. To change your default WSL distro, run wsl --set-default <distro name>. (For example, to set Ubuntu as your default WSL distro, run wsl --set-default ubuntu).
+
+You can also select any additional distributions you would like to enable the WSL 2 integration on.
+
+For more details on configuring Docker Desktop to use WSL 2, see Docker Desktop WSL 2 backend.
+
+
+PS C:\WINDOWS\system32> wsl --set-default ubuntu
+PS C:\WINDOWS\system32>
+
+
+this time, the command completes, since we now have enabled wsl , installed the linux kernel update and enabled the wsl2 and vm platform through the powershell commands (see config files , we did this previously.))
+
+
+also , we now need to choose additional distribution as well
+
+select ubuntu here. ( which we installed from microsoft store)
+
+
+select apply and restart.
+
+
+
+
+
+now, we need to edit config.json file in a text editor,
+
+To enable experimental features in the Docker CLI, edit the config.json file and set experimental to enabled.
+
+To enable experimental features from the Docker Desktop menu, click Settings (Preferences on macOS) > Command Line and then turn on the Enable experimental features toggle. Click Apply & Restart.
+
+
+
+
